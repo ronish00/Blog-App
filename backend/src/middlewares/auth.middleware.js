@@ -8,7 +8,6 @@ const verifyJwt = async (req, res, next) => {
         if(!incomingAccessToken){
             throw new Error('Access token not found')
         }
-        console.log(incomingAccessToken);
     
         const verifiedToken = await jwt.verify(
             incomingAccessToken,

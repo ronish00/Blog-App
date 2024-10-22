@@ -95,13 +95,9 @@ const userLogout = async (req, res) => {
   //clear cookie
   //clear token
   try {
-    const result = await User.findByIdAndUpdate(req.user._id, {
-      $set: {
-        refreshToken: null,
-      }
-    });
-    
-    console.log(result);
+    await User.findByIdAndUpdate(req.user._id, {
+      $set: {refreshToken: ""}
+    })
 
     const options = {
       httpOnly: true,
