@@ -38,7 +38,11 @@ const userRegister = async (req, res) => {
       throw new Error("User creation failed");
     }
 
-    return res.status(200).json(createdUser);
+    return res.status(200).json({
+      user: createdUser,
+      message: "User created successfully",
+      success: true,
+    });
   } catch (error) {
     return res.status(500).json({
       message: "Failed to create user",
@@ -82,7 +86,11 @@ const userLogin = async (req, res) => {
       .status(200)
       .cookie("accessToken", accessToken, options)
       .cookie("refreshToken", refreshToken, options)
-      .json(loggedInUser);
+      .json({
+        user: loggedInUser,
+        message: "user logged in successfully",
+        success: true,
+      });
   } catch (error) {
     return res.status(500).json({
       message: "User login failed",
@@ -96,8 +104,8 @@ const userLogout = async (req, res) => {
   //clear token
   try {
     await User.findByIdAndUpdate(req.user._id, {
-      $set: {refreshToken: ""}
-    })
+      $set: { refreshToken: "" },
+    });
 
     const options = {
       httpOnly: true,
@@ -108,7 +116,7 @@ const userLogout = async (req, res) => {
       .status(200)
       .clearCookie("accessToken", options)
       .clearCookie("refreshToken", options)
-      .json({ message: "User logged out" });
+      .json({ message: "User logged out", success: true });
   } catch (error) {
     return res.status(500).json({
       message: "User logout failed",
@@ -117,4 +125,53 @@ const userLogout = async (req, res) => {
   }
 };
 
-export { userRegister, userLogin, userLogout };
+const getCurrentUser = (req, res) => {
+  try {
+    return res.status(200).json({
+      user: req.user,
+      message: "User fetched successfully",
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error fetching user",
+      error: error.message || "Unknown error",
+    });
+  }
+};
+
+const changeCurrentPassword = async (req, res) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+    if (!(oldPassword && newPassword)) {
+      throw new Error("All fields are required");
+    }
+
+    const user = await User.findById(req.user._id);
+
+    const isPasswordCorrect = await user.comparePassword(oldPassword);
+    if (!isPasswordCorrect) {
+      throw new Error("Your current password is incorrect");
+    }
+
+    user.password = newPassword;
+    await user.save({ validateBeforeSave: false });
+
+    return res
+      .status(200)
+      .json({ message: "Password updated successfully", success: true });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Error updating password",
+      error: error.message || "Unknown error",
+    });
+  }
+};
+
+export {
+  userRegister,
+  userLogin,
+  userLogout,
+  getCurrentUser,
+  changeCurrentPassword,
+};

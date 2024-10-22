@@ -6,7 +6,7 @@ const verifyJwt = async (req, res, next) => {
     try {
         const incomingAccessToken = req.cookies.accessToken || req.header('Authorization')?.split(' ')[1];
         if(!incomingAccessToken){
-            throw new Error('Access token not found')
+            return res.status(404).json({message: "User is not logged in"})
         }
     
         const verifiedToken = await jwt.verify(

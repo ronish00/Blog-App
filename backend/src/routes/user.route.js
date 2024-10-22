@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { userLogin, userLogout, userRegister } from "../controllers/user.controller.js";
+import { changeCurrentPassword, getCurrentUser, userLogin, userLogout, userRegister } from "../controllers/user.controller.js";
 import verifyJwt from "../middlewares/auth.middleware.js";
 
 
@@ -11,6 +11,9 @@ router.route('/login').post(userLogin);
 
 //protected routes
 router.route('/logout').post(verifyJwt, userLogout)
+router.route('/getCurrentUser').get(verifyJwt, getCurrentUser)
+router.route('/changePassword').post(verifyJwt, changeCurrentPassword)
+
 
 
 
