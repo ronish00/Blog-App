@@ -1,15 +1,16 @@
 import React from "react";
 import Container from "../Container";
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   const navItems = [
     {
       name: "Home",
-      slug: "/home",
+      slug: "/",
     },
     {
       name: "blogs",
-      slug: "/blogs",
+      slug: "/all-blogs",
     },
     {
       name: "Login",
@@ -25,11 +26,11 @@ const Header = () => {
     <header className="py-8">
       <Container>
         <nav className="flex items-center justify-between">
-          <a href="/" className="text-xl font-semibold">Blogger</a>
+          <Link to='/' className="text-xl font-semibold">Blogger</Link>
           <ul className="flex items-center gap-16">
             {navItems.map((item) => (
               <li key={item.name}>
-                <a href={item.slug}>{item.name}</a>
+                <Link to={item.slug}>{item.name}</Link>
               </li>
             ))}
           </ul>

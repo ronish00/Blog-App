@@ -6,10 +6,8 @@ import BlogCard from "../components/BlogCard";
 const Home = () => {
   return (
     <>
-      <Header />
       <Container>
-        <h1 className="text-5xl font-bold my-16">Blogs.</h1>
-        <div className="top flex gap-11">
+        <div className="top flex gap-11 mt-16">
           <BlogCard size="big" />
           <div>
             <BlogCard size="sm" />
