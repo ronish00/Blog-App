@@ -7,6 +7,7 @@ const Home = () => {
   return (
     <>
       <Container>
+        <h1 className="text-5xl font-bold my-16">Recent Blogs.</h1>
         <div className="top flex gap-11 mt-16">
           <BlogCard size="big" />
           <div>

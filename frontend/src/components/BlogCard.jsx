@@ -1,16 +1,18 @@
 import React from "react";
+import FeaturedImage from '../assets/FeaturedImage.png'
+import { Link } from "react-router-dom";
 
 const BlogCard = ({ 
     size
 }) => {
   return (
-    <div
+    <Link to="/"
       className={`${
         size === "big" ? "w-3/4" : size === "md" ? "mb-12 w-full flex items-center border border-[#EBEBEB] shadow-[0px_2px_11pxPrgva(0,0,0,0.03)]" : "w-auto"
       }`}
     >
-      <img src="" alt="" />
-      <div className={`my-6 ${size === "md" ? "p-8" : ""}`}>
+      <img src={FeaturedImage} alt="" className={`${size === 'big' ? 'w-full h-4/6' : size === 'md' ? 'h-80 w-96' : 'w-full h-64'} object-cover`} />
+      <div className={`${size === "md" ? "p-12" : "my-6"}`}>
         <h2
           className={`font-bold ${
             size === "big" ? "text-4xl" : size === "md" ? 'text-2xl' : 'text-xl'
@@ -29,7 +31,7 @@ const BlogCard = ({
         </p>
         <p className="text-[#493738] mt-6">4 Jan, 2023</p>
       </div>
-    </div>
+    </Link>
   );
 };
 

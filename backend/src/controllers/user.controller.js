@@ -19,6 +19,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
 const userRegister = async (req, res) => {
   try {
     const { fullname, email, password } = req.body;
+    console.log(fullname)
 
     if (!(fullname && email && password)) {
       throw new Error("All fields are required");
@@ -127,6 +128,7 @@ const userLogout = async (req, res) => {
 
 const getCurrentUser = (req, res) => {
   try {
+    console.log('hello')
     return res.status(200).json({
       user: req.user,
       message: "User fetched successfully",

@@ -23,7 +23,12 @@ const verifyJwt = async (req, res, next) => {
     
         next();
     } catch (error) {
-        console.log(error);
+        return res
+        .status(500)
+        .json({
+            message: "Access token not found",
+            error: error.message || 'Unknown error'
+        })
     }
 }
 

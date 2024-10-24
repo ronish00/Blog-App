@@ -1,29 +1,58 @@
-import './App.css'
-import Layout from './Layout'
-import AllBlogs from './pages/AllBlogs'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import SignUp from './pages/SignUp'
-import {createBrowserRouter, Route, createRoutesFromElements, RouterProvider} from 'react-router-dom'
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<Layout />}>
-      <Route path='/' element={<Home />} />
-      <Route path='/all-blogs' element={<AllBlogs />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/signup' element={<SignUp />} />
-    </Route>
-  )
-)
+import "./App.css";
+import { useEffect, useState } from "react";
+import Header from './components/Header/Header'
+import { Outlet } from 'react-router-dom'
+import Footer from './components/Footer'
+import axios from 'axios';
+import { useDispatch } from "react-redux";
+import { login, logout } from "./store/authSlice";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch()
 
-  return (
-    <>
-      <RouterProvider router={router} />
+  const fetchCurrentData = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/v1/users/getCurrentUser', { withCredentials: true });
+      if(response.data.success === true){
+        setLoading(false);
+        dispatch(login(response.data.user))
+      }
+      else{
+        dispatch(logout())
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching current user data:", error);
+      dispatch(logout()); // Log out on error
+      setLoading(false); // Ensure loading state is updated
+    }
+  };
+
+  useEffect(() => {
+    fetchCurrentData();
+  },[])
+
+  if(loading){
+    return (
+      <>
+        <Header />
+          <div className="text-center">loading...</div>
+        <Footer />
+      </>
+    )
+  }
+  else{
+    return (
+      <>
+      <Header />
+        <Outlet />
+      <Footer />
     </>
-  )
+    );
+
+  }
+
 }
 
-export default App
+export default App;
