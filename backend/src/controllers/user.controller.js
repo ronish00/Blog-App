@@ -1,4 +1,5 @@
 import { User } from "../models/users.model.js";
+import jwt from 'jsonwebtoken';
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -128,7 +129,6 @@ const userLogout = async (req, res) => {
 
 const getCurrentUser = (req, res) => {
   try {
-    console.log('hello')
     return res.status(200).json({
       user: req.user,
       message: "User fetched successfully",
@@ -170,10 +170,60 @@ const changeCurrentPassword = async (req, res) => {
   }
 };
 
+const refreshToken = async (req, res) => {
+  try {
+    const incomingToken = req.cookies.refreshToken || req.body.refreshToken;
+    if(!incomingToken){
+      throw new Error(401, 'Unauthorized access');
+    }
+  
+    const decodedToken = jwt.verify(incomingToken, process.env.REFRESH_TOKEN_SECRET);l
+    if(!decodedToken){
+      throw new Error(401, "Invalid refresh Token");
+    }
+  
+    const user = await User.findById(decodedToken._id);
+    if(!user){
+      throw new Error(404, "Invalid refresh Token")
+    }
+  
+    if(incomingToken !== user.refreshToken){
+      throw new Error(401, "Refresh Token is used or expired")
+    }
+  
+    const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id)
+  
+    const options = {
+      httpOnly: true,
+      secure: true
+    }
+  
+    return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+      {
+        accessToken,
+        refreshToken,
+        message: "Access Token refreshed"
+      }
+    )
+  } catch (error) {
+    return res
+    .status(500)
+    .json({
+      message: "Error while generating access token",
+      error: error.message || 'unknown error'
+    })
+  }
+}
+
 export {
   userRegister,
   userLogin,
   userLogout,
   getCurrentUser,
   changeCurrentPassword,
+  refreshToken
 };

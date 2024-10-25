@@ -35,6 +35,7 @@ const AllBlogs = () => {
               date={blog.createdAt}
               category={blog?.category}
               key={blog._id}
+              slug={blog._id}
             />
           ))}
         </div>

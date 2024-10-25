@@ -12,6 +12,7 @@ import {createBrowserRouter, Route, createRoutesFromElements, RouterProvider} fr
 import MyBlogs from './pages/MyBlogs.jsx'
 import Protected from './components/Protected.jsx'
 import AddBlog from './pages/AddBlog.jsx'
+import BlogDetails from './pages/BlogDetails.jsx'
 
 const ProtectedRoute = ({element, authentication}) => {
   return (<Protected authentication={authentication}>{element}</Protected>)
@@ -21,16 +22,21 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
       <Route path='/' element={<Home />} />
+
       <Route path='/all-blogs' element={<AllBlogs />} />
 
       {/* public routes */}
       <Route path='/login' element={<ProtectedRoute element={<Login />} authentication={false} />} />
       <Route path='/signup' element={<ProtectedRoute element={<SignUp />} authentication={false} />} />
-      <Route path='/my-blogs' element={<MyBlogs />} />
+
 
       {/* Private routes */}
       <Route path='/my-blogs' element={<ProtectedRoute element={<MyBlogs />} authentication={true} />} />
       <Route path='/add-blogs' element={<ProtectedRoute element={<AddBlog />} authentication={true} />} />
+
+      {/* Blog Details */}
+      <Route path='/blogs/:id' element={<BlogDetails />} />
+      
     </Route>
   )
 )

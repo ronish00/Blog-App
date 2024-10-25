@@ -59,6 +59,7 @@ const MyBlogs = () => {
                   content={blog.content}
                   date={blog.createdAt}
                   category={blog?.category}
+                  slug={blog._id}
                 />
               </li>
             ))

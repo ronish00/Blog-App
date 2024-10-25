@@ -9,6 +9,9 @@ const Home = () => {
   const dispatch = useDispatch();
   const {allBlogs, loading, error} = useSelector((state) => state.allBlogs);
 
+  //reverse the blogs to get recent blog
+  const reverseBlogs = [...allBlogs].reverse()
+
   // const fetchAllBlogs = async () => {
   //   try {
   //     const response = await axios.get(
@@ -50,12 +53,12 @@ const Home = () => {
     <>
       <Container>
         <h1 className="text-5xl font-bold my-16">Recent Blogs.</h1>
-        {allBlogs.length === 0 ? (
+        {reverseBlogs.length === 0 ? (
           <p>No blog found</p>
         ) : (
           <>
             <div className="top flex gap-11 mt-16">
-              {allBlogs.slice(0, 1).map((blog) => (
+              {reverseBlogs.slice(0, 1).map((blog) => (
                 <BlogCard
                   key={blog._id}
                   title={blog.title}
@@ -63,10 +66,11 @@ const Home = () => {
                   date={blog.createdAt}
                   category={blog?.category}
                   size="big"
+                  slug={blog._id}
                 />
               ))}
               <div>
-                {allBlogs.slice(1, 3).map((blog) => (
+                {reverseBlogs.slice(1, 3).map((blog) => (
                   <BlogCard
                     key={blog._id}
                     title={blog.title}
@@ -74,12 +78,13 @@ const Home = () => {
                     date={blog.createdAt}
                     category={blog?.category}
                     size="sm"
+                    slug={blog._id}
                   />
                 ))}
               </div>
             </div>
             <div className="my-12">
-              {allBlogs.slice(3).map((blog) => (
+              {reverseBlogs.slice(3).map((blog) => (
                 <BlogCard
                   key={blog._id}
                   title={blog.title}
@@ -87,6 +92,7 @@ const Home = () => {
                   date={blog.createdAt}
                   category={blog?.category}
                   size="md"
+                  slug={blog._id}
                 />
               ))}
             </div>

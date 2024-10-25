@@ -1,4 +1,5 @@
 import { Blog } from "../models/blog.model.js";
+import { User } from "../models/users.model.js";
 
 const createBlog = async (req, res) => {
   try {
@@ -168,6 +169,39 @@ const getAllBlogs = async(req, res) => {
     }
 }
 
+const getABlog = async(req, res) => {
+  try {
+    const id = req.params.id
+    if(!id){
+      throw new Error("Id not found")
+    }
+    const blog = await Blog.findById(id);
+    if(!blog){
+      throw new Error("Blog not found")
+    }
+
+    const user = await User.findById(blog.author).select("-password -refreshToken -createdAt -updatedAt");
+    if(!user){
+      throw new Error("Author not found");
+    }
+
+    return res
+    .status(200)
+    .json({
+      blog,
+      author: user,
+      message: "Blog successfully fetched"
+    })
+  } catch (error) {
+    return res
+    .status(500)
+    .json({
+      message: "Error fetching blog",
+      error: error.message || 'Unknown error'
+    })
+  }
+}
 
 
-export { createBlog, deleteBlog, updateBlog, getOwnBlogs, getAllBlogs };
+
+export { createBlog, deleteBlog, updateBlog, getOwnBlogs, getAllBlogs, getABlog };

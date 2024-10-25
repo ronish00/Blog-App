@@ -2,10 +2,10 @@ import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 const RTE = React.forwardRef(({ label, content, className = "", onEditorChange, ...props }, ref) => {
+  
   const handleEditorInit = (evt, editor) => {
     // Set the ref to the TinyMCE editor instance
     ref.current = editor;
-    console.log("Editor initialized", editor);
   };
 
   return (
