@@ -3,8 +3,19 @@ import FeaturedImage from '../assets/FeaturedImage.png'
 import { Link } from "react-router-dom";
 
 const BlogCard = ({ 
-    size
+    size,
+    title,
+    content,
+    date,
+    category
 }) => {
+
+  const formattedDate = new Date(date).toLocaleDateString('en-us', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  })
+
   return (
     <Link to="/"
       className={`${
@@ -13,23 +24,22 @@ const BlogCard = ({
     >
       <img src={FeaturedImage} alt="" className={`${size === 'big' ? 'w-full h-4/6' : size === 'md' ? 'h-80 w-96' : 'w-full h-64'} object-cover`} />
       <div className={`${size === "md" ? "p-12" : "my-6"}`}>
+        {category && <p className="mb-4 text-xs text-gray-500">{category}</p>}
         <h2
           className={`font-bold ${
             size === "big" ? "text-4xl" : size === "md" ? 'text-2xl' : 'text-xl'
           }`}
         >
-          4 Reasons Why Your Café Should Sell Cold Brew Coffee
+          {title}
         </h2>
         <p
           className={`text-[#493738] mt-6 ${
             size === "sm" ? "hidden" : "block"
           }`}
         >
-          Cold brew coffee is perfect drink for hot summer days but why you
-          should definitely sell it in your café? Here are my four reasons why
-          every café should sell cold brew coffee throughout the year!
+          {content}
         </p>
-        <p className="text-[#493738] mt-6">4 Jan, 2023</p>
+        <p className="text-[#493738] mt-6">{formattedDate}</p>
       </div>
     </Link>
   );

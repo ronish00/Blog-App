@@ -20,6 +20,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(null);
 
     try {
       const response = await axios.post(
@@ -35,11 +36,15 @@ const Login = () => {
         dispatch(login(response.data.user));
         navigate("/");
       } else {
-        setError(response.data.message || "Login failed");
+        setError(response.data.error || "Login failed");
       }
     } catch (error) {
       console.error("Login error:", error);
-      setError("An error occurred during login. Please try again."); // Handle error
+      if (error.response && error.response.data && error.response.data.error) {
+        setError(error.response.data.error); // Use the error message from the response
+      } else {
+        setError("An error occurred during login. Please try again."); // Default fallback error
+      }
     } finally {
       setLoading(false)
     }
@@ -80,6 +85,10 @@ const Login = () => {
             </div>
             <Button type="submit" children="Login" className="mt-6" />
           </form>
+
+          {
+            error && <p className="text-red-600 mt-5 text-center">{error}</p>
+          }
         </div>
       </Container>
     </>

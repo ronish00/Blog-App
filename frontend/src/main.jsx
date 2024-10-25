@@ -11,6 +11,7 @@ import SignUp from './pages/SignUp'
 import {createBrowserRouter, Route, createRoutesFromElements, RouterProvider} from 'react-router-dom'
 import MyBlogs from './pages/MyBlogs.jsx'
 import Protected from './components/Protected.jsx'
+import AddBlog from './pages/AddBlog.jsx'
 
 const ProtectedRoute = ({element, authentication}) => {
   return (<Protected authentication={authentication}>{element}</Protected>)
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
 
       {/* Private routes */}
       <Route path='/my-blogs' element={<ProtectedRoute element={<MyBlogs />} authentication={true} />} />
+      <Route path='/add-blogs' element={<ProtectedRoute element={<AddBlog />} authentication={true} />} />
     </Route>
   )
 )
