@@ -8,7 +8,7 @@ const router = Router();
 
 router.route('/register').post(userRegister)
 router.route('/login').post(userLogin);
-router.route('/refresh-token').post(refreshToken)
+router.route('/refresh-token').post(verifyJwt, refreshToken)
 
 //protected routes
 router.route('/logout').post(verifyJwt, userLogout)

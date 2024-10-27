@@ -1,14 +1,14 @@
-import React, {useId} from 'react'
+import React from 'react'
 
 const Input = ({
     type,
     label,
     placeholder,
     className ="",
+    id,
+    error,
     ...props
 }, ref) => {
-
-    const id = useId()
 
   return (
     <div className='w-full flex flex-col gap-3'>
@@ -24,12 +24,15 @@ const Input = ({
         }
       <input 
         type={type} 
-        id={id} 
+        id={id}
         ref={ref} 
-        {...props}
         placeholder={placeholder}
-        className={`${className} border border-[#ddd] px-3 py-3 rounded`}
+        className={`${className} border ${error ? 'border-red-600' : 'border-[#ddd]'}  px-3 py-3 rounded`}
+        {...props}
       />
+      {
+        error && <p className='text-red-600 text-sm'>{error}</p>
+      }
     </div>
   )
 }

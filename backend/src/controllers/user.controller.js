@@ -20,9 +20,8 @@ const generateAccessAndRefreshTokens = async (userId) => {
 const userRegister = async (req, res) => {
   try {
     const { fullname, email, password } = req.body;
-    console.log(fullname)
 
-    if (!(fullname && email && password)) {
+    if (!(fullname.trim() && email.trim() && password.trim())) {
       throw new Error("All fields are required");
     }
 
@@ -57,7 +56,7 @@ const userLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    if (!(email && password)) {
+    if (!(email.trim() && password.trim())) {
       throw new Error("All fields are required");
     }
 
@@ -174,21 +173,22 @@ const refreshToken = async (req, res) => {
   try {
     const incomingToken = req.cookies.refreshToken || req.body.refreshToken;
     if(!incomingToken){
-      throw new Error(401, 'Unauthorized access');
+      throw new Error('Unauthorized access');
     }
-  
-    const decodedToken = jwt.verify(incomingToken, process.env.REFRESH_TOKEN_SECRET);l
+    
+    const decodedToken = jwt.verify(incomingToken, process.env.REFRESH_TOKEN_SECRET);
+
     if(!decodedToken){
-      throw new Error(401, "Invalid refresh Token");
+      throw new Error("Invalid refresh Token");
     }
   
     const user = await User.findById(decodedToken._id);
     if(!user){
-      throw new Error(404, "Invalid refresh Token")
+      throw new Error("Invalid refresh Token")
     }
   
     if(incomingToken !== user.refreshToken){
-      throw new Error(401, "Refresh Token is used or expired")
+      throw new Error("Refresh Token is used or expired")
     }
   
     const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id)
@@ -204,8 +204,6 @@ const refreshToken = async (req, res) => {
     .cookie("refreshToken", refreshToken, options)
     .json(
       {
-        accessToken,
-        refreshToken,
         message: "Access Token refreshed"
       }
     )

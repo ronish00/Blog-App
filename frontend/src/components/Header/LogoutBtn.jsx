@@ -2,6 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../store/authSlice.js'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const LogoutBtn = () => {
     
@@ -12,6 +13,7 @@ const LogoutBtn = () => {
         console.log(response)
         if(response.data.success === true){
           dispatch(logout());
+          toast.success(response.data.message)
         }
     }
 
