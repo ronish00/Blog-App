@@ -12,11 +12,11 @@ const myBlogSlice = createSlice({
             state.blogs.push(action.payload);
         },
         deleteBlog: (state, action) => {
-            state.blogs.filter(blog => blog.id !== action.payload);
+            state.blogs = state.blogs.filter(blog => blog._id !== action.payload);
         },
         updateBlog: (state, action) => {
             const {id, title, content, featuredImage} = action.payload;
-            const existingBlog = state.blogs.find(blog => blog.id === id);
+            const existingBlog = state.blogs.find(blog => blog._id === id);
             if(existingBlog){
                 existingBlog.title = title;
                 existingBlog.content = content;

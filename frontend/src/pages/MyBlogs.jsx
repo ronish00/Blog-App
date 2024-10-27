@@ -12,7 +12,7 @@ const MyBlogs = () => {
   const dispatch = useDispatch();
 
   const blogs = useSelector((state) => state.myBlogs.blogs);
-  console.log(blogs);
+  console.log(blogs)
 
   const fetchBlogs = async () => {
     try {
@@ -59,7 +59,9 @@ const MyBlogs = () => {
                   content={blog.content}
                   date={blog.createdAt}
                   category={blog?.category}
+                  author={blog.author}
                   slug={blog._id}
+                  id={blog._id}
                 />
               </li>
             ))

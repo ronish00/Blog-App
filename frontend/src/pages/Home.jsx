@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Container from "../components/Container";
-import BlogCard from "../components/BlogCard";
+import BlogCard from "../components/BlogCard.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs } from "../store/allBlogSlice.js";
 
