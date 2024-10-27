@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteBlog } from '../store/myBlogSlice';
+import { toast } from "react-toastify";
 
 const DeleteBlog = ({ author, blogId, className = "" }) => {
   const [error, setError] = useState(null);
@@ -37,14 +38,16 @@ const DeleteBlog = ({ author, blogId, className = "" }) => {
 
       if (response.status === 200) {
         dispatch(deleteBlog(blogId))
+        toast.success(response.data.message)
       } else {
-        setError("Failed to delete blog");
+        toast.error(response.data.message);
       }
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
-        setError(error.response.data.error);
+        const errorMessage = error.response.data.error;
+        toast.error(errorMessage);
       } else {
-        setError("Something went wrong while deleting the blog");
+        toast.error("Something went wrong while deleting the blog");
       }
     } finally {
       setLoading(false);  // Stop loading after request

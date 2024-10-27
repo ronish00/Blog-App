@@ -1,13 +1,14 @@
-import React, {useId} from 'react'
+import React from 'react'
 
 const Select = ({
     type,
     label,
     className ="",
+    id,
+    error,
     ...props
 }, ref) => {
 
-    const id = useId()
 
   return (
     <div className='w-full flex flex-col gap-3'>
@@ -24,7 +25,7 @@ const Select = ({
       <select  
         id={id} 
         ref={ref} 
-        className={`${className} border border-[#ddd] px-3 py-3 rounded`}
+        className={`${className} border ${error ? "border-red-600" : "border-[#ddd]"} px-3 py-3 rounded`}
         {...props}
       >
         <option value="" disabled>Please select a category</option>
@@ -35,6 +36,9 @@ const Select = ({
         <option value="education">Education</option>
         <option value="travel">Travel</option>
       </select>
+      {
+        error && <p className='text-red-600 text-sm'>{error}</p>
+      }
     </div>
   )
 }

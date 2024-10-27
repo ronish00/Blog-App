@@ -18,6 +18,7 @@ const LoginComponent = () => {
     register,
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     defaultValues: {
