@@ -51,7 +51,7 @@ const deleteBlog = async (req, res) => {
       .json({ message: "Blog deleted successfully", success: true });
   } catch (error) {
     return res.status(500).json({
-      message: "Error deleting blog",
+      message: "Failed to delete blog",
       error: error.message || "Unknown error",
     });
   }

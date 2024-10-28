@@ -1,11 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteBlog } from '../store/myBlogSlice';
+import { deleteBlog } from '../../store/myBlogSlice';
 import { toast } from "react-toastify";
 
 const DeleteBlog = ({ author, blogId, className = "" }) => {
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);  // To handle loading state
   const user_id = useSelector((state) => state.auth.userData?._id);
   const authStatus = useSelector((state) => state.auth.status);
@@ -13,22 +12,19 @@ const DeleteBlog = ({ author, blogId, className = "" }) => {
 
   const handleDeleteBlog = async () => {
     try {
-      setError(null);  // Clear previous error
       setLoading(true); // Start loading
 
       // Check if user is logged in
       if (!authStatus) {
-        setError("You are not logged in");
+        toast.error("You're not logged in")
         return;
       }
 
       // Check if the user is the author
       if (user_id !== author) {
-        setError("You are not the author of this blog");
+        toast.error("You are not the author of this blog")
         return;
       }
-
-      console.log(blogId)
 
       // Proceed to delete the blog
       const response = await axios.delete(
@@ -49,6 +45,7 @@ const DeleteBlog = ({ author, blogId, className = "" }) => {
       } else {
         toast.error("Something went wrong while deleting the blog");
       }
+      console.log(error)
     } finally {
       setLoading(false);  // Stop loading after request
     }
@@ -56,7 +53,6 @@ const DeleteBlog = ({ author, blogId, className = "" }) => {
 
   return (
     <>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
       <button onClick={handleDeleteBlog} disabled={loading} className={`${className}`}>
         {loading ? 'Deleting...' : 'Delete Blog'}
       </button>

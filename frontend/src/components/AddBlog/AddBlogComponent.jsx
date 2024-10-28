@@ -78,7 +78,7 @@ const AddBlogComponent = () => {
               error={errors.category?.message}
               {...register("category")}
             />
-            <RTE label="Content" name="content" control={control}  />
+            <RTE label="Content" name="content" control={control} error={errors.content?.message}  />
             <Input
               type="file"
               id="featuredImage"
