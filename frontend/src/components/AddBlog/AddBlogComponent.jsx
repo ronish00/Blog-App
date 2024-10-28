@@ -30,7 +30,6 @@ const AddBlogComponent = () => {
   });
 
   const handleFormSubmit = async (data) => {
-    console.log(data)
     setLoading(true);
     try {
       const response = await axios.post('http://localhost:3000/api/v1/blogs/createBlog', 

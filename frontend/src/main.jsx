@@ -19,7 +19,8 @@ import Protected from "./components/Protected.jsx";
 import AddBlog from "./pages/AddBlog.jsx";
 import BlogDetails from "./pages/BlogDetails.jsx";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css'
+import "react-toastify/dist/ReactToastify.css";
+import EditBlog from "./pages/EditBlog.jsx";
 
 const ProtectedRoute = ({ element, authentication }) => {
   return <Protected authentication={authentication}>{element}</Protected>;
@@ -47,6 +48,14 @@ const router = createBrowserRouter(
         path="/my-blogs"
         element={<ProtectedRoute element={<MyBlogs />} authentication={true} />}
       />
+
+      <Route
+        path="/my-blogs/edit-blog/:id"
+        element={
+          <ProtectedRoute element={<EditBlog />} authentication={true} />
+        }
+      />
+      
       <Route
         path="/add-blogs"
         element={<ProtectedRoute element={<AddBlog />} authentication={true} />}

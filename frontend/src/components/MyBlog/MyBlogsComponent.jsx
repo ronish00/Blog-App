@@ -5,11 +5,13 @@ import axios from "axios";
 import Container from "../Container.jsx";
 import BlogCard from "../BlogCard.jsx";
 import DeleteBlog from "./DeleteBlog.jsx";
+import { useNavigate } from "react-router-dom";
 
 const MyBlogsComponent = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const blogs = useSelector((state) => state.myBlogs.blogs);
@@ -69,7 +71,10 @@ const MyBlogsComponent = () => {
                     category={blog?.category}
                     slug={blog._id}
                   />
-                  <DeleteBlog author={blog.author} blogId={blog._id} className="absolute right-6 top-6 text-red-600"/>
+                  <div className="absolute right-6 top-6 flex items-center gap-2">
+                    <DeleteBlog author={blog.author} blogId={blog._id} className="text-red-600"/>
+                    <button onClick={(e) => navigate(`edit-blog/${blog._id}`)} className="bg-none text-black p-0">Update Blog</button>
+                  </div>
                 </div>
               </li>
             ))
