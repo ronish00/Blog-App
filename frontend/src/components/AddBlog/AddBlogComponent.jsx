@@ -87,7 +87,11 @@ const AddBlogComponent = () => {
               {...register("featuredImage")}
             />
           </div>
-          <Button type="submit" children="Add Blog" className="mt-6" />
+          <Button type="submit" className="mt-6" disabled={loading}>
+            {
+              loading ? 'Creating...' : 'Create Blog'
+            }
+          </Button>
         </form>
       </div>
     </Container>
