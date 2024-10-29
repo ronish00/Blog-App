@@ -12,7 +12,7 @@ const RTE = ({ name, label, control, defaultValue = "", error, className = "" })
         defaultValue={defaultValue} // Ensure default value is set
         render={({ field: { onChange, value } }) => (
           <Editor
-            apiKey="your-api-key"
+            apiKey="miwwo2dunlgxnad83kc9o8xe80v4o4bj70b3iw6r9lkddk4i"
             value={value} // Controlled value from form
             onEditorChange={onChange} // Handle editor changes via form
             init={{
@@ -43,7 +43,7 @@ const RTE = ({ name, label, control, defaultValue = "", error, className = "" })
               toolbar:
                 "undo redo | blocks | image | bold italic forecolor | alignleft aligncenter bold italic forecolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help",
               content_style:
-                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
+                "body { font-family:Helvetica,Arial,sans-serif; font-size:14px },",
             }}
             className={`${className} border ${error ? "border-red-600" : "border-[#ddd]"} px-3 py-3 rounded`}
           />

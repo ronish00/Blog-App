@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Container from "../Container";
 import Input from "../Input";
 import Button from "../Button";
-import RTE from "../RTE";
+import RTE from "../RTE/RTE.jsx";
 import Select from "../Select";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -68,7 +68,7 @@ const EditBlogComponent = () => {
           content: data.content,
           featuredImage: data.featuredImage[0],
         },
-        { withCredentials: true }
+        { withCredentials: true, headers: {"Content-Type": "multipart/form-data"} }
       );
       if (response.status == 200) {
         toast.success(response.data.message);

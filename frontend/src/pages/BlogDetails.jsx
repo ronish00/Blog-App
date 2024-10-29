@@ -46,7 +46,7 @@ const BlogDetails = () => {
     <Container>
       <div className='mt-20'>
         <h1 className='text-4xl font-bold'>{blog.title}</h1>
-        <img src="" alt="" />
+        <img src={blog.featuredImage} alt={blog.title} className='my-10 w-full h-96 object-cover rounded-2xl' />
         <div className='mt-8' dangerouslySetInnerHTML={{__html:blog.content}}/>
       </div>
     </Container>

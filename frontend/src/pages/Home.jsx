@@ -5,12 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs } from "../store/allBlogSlice.js";
 
 const Home = () => {
-
   const dispatch = useDispatch();
-  const {allBlogs, loading, error} = useSelector((state) => state.allBlogs);
+  const { allBlogs, loading, error } = useSelector((state) => state.allBlogs);
 
   //reverse the blogs to get recent blog
-  const reverseBlogs = [...allBlogs].reverse()
+  const reverseBlogs = [...allBlogs].reverse();
 
   // const fetchAllBlogs = async () => {
   //   try {
@@ -38,7 +37,7 @@ const Home = () => {
   //   }
   // };
   useEffect(() => {
-    dispatch(fetchBlogs())
+    dispatch(fetchBlogs());
   }, []);
 
   if (loading) {
@@ -65,6 +64,7 @@ const Home = () => {
                   content={blog.content}
                   date={blog.createdAt}
                   category={blog?.category}
+                  featuredImage={blog?.featuredImage}
                   size="big"
                   slug={blog._id}
                 />
@@ -77,6 +77,7 @@ const Home = () => {
                     content={blog.content}
                     date={blog.createdAt}
                     category={blog?.category}
+                    featuredImage={blog?.featuredImage}
                     size="sm"
                     slug={blog._id}
                   />
@@ -91,6 +92,7 @@ const Home = () => {
                   content={blog.content}
                   date={blog.createdAt}
                   category={blog?.category}
+                  featuredImage={blog?.featuredImage}
                   size="md"
                   slug={blog._id}
                 />

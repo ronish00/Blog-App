@@ -6,6 +6,7 @@ import { fetchBlogs } from "../store/allBlogSlice";
 
 const AllBlogs = () => {
   const dispatch = useDispatch();
+
   const { allBlogs, loading, error } = useSelector(
     (state) => state.allBlogs
   );
@@ -34,6 +35,7 @@ const AllBlogs = () => {
               content={blog.content}
               date={blog.createdAt}
               category={blog?.category}
+              featuredImage={blog?.featuredImage}
               key={blog._id}
               slug={blog._id}
             />

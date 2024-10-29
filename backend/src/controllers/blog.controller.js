@@ -1,5 +1,6 @@
 import { Blog } from "../models/blog.model.js";
 import { User } from "../models/users.model.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const createBlog = async (req, res) => {
   try {
@@ -10,12 +11,26 @@ const createBlog = async (req, res) => {
       throw new Error("All fields are required");
     }
 
+    const featuredImagePath = req.file?.path;
+    if(!featuredImagePath){
+      throw new Error("Featured Image is required");
+    }
+
+    console.log(featuredImagePath)
+
+    const featuredImage = await uploadOnCloudinary(featuredImagePath);
+    if(!featuredImage){
+      throw new Error("Error uploading featured image");
+    }
+
     const blog = await Blog.create({
       title,
       content,
       category,
+      featuredImage: featuredImage.url,
       author: user._id,
     });
+
     if (!blog) {
       throw new Error("Failed to create blog");
     }
@@ -61,21 +76,32 @@ const updateBlog = async (req, res) => {
   try {
     const blogId = req.params.id;
     const { title, content, category } = req.body;
+    
+    let featuredImage;
+    if (req.file && req.file.path) {
+      featuredImage = await uploadOnCloudinary(req.file.path);
+    }
+
+    const updateData = {
+      title,
+      content,
+      category,
+      ...(featuredImage && { featuredImage: featuredImage.url })
+    };
 
     const blog = await Blog.findByIdAndUpdate(blogId, {
-      $set: {
-        title,
-        content,
-        category,
-      },
-    });
+      $set: updateData,
+    }, { new: true });
 
     if (!blog) {
-      throw new Error(404, "Blog not found");
+      return res.status(404).json({
+        message: "Blog not found",
+        success: false,
+      });
     }
 
     return res.status(200).json({
-      blog: blog,
+      blog,
       message: "Blog updated successfully",
       success: true,
     });

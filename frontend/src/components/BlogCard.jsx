@@ -1,8 +1,7 @@
 import React from "react";
-import FeaturedImage from "../assets/FeaturedImage.png";
 import { Link } from "react-router-dom";
 
-const BlogCard = ({ size, title, content, date, category, slug }) => {
+const BlogCard = ({ size, title, content, date, category, featuredImage, slug }) => {
   const extractPlainText = (html) => {
     const tempDiv = document.createElement("div");
     tempDiv.innerHTML = html;
@@ -29,7 +28,7 @@ const BlogCard = ({ size, title, content, date, category, slug }) => {
       }`}
     >
       <img
-        src={FeaturedImage}
+        src={featuredImage}
         alt=""
         className={`${
           size === "big"

@@ -3,7 +3,7 @@ import Container from "../Container";
 import Input from "../Input";
 import Button from "../Button";
 import Select from "../Select";
-import RTE from "../RTE";
+import RTE from "../RTE/RTE.jsx";
 import axios from "axios";
 import schema from "./validation.js";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -39,7 +39,8 @@ const AddBlogComponent = () => {
           content: data.content,
           featuredImage: data.featuredImage[0],
         },
-        {withCredentials: true})
+        {withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' }})
+
 
       if(response.status === 200){
         setLoading(false);

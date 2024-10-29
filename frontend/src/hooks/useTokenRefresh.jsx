@@ -13,12 +13,9 @@ const useTokenRefresh = () => {
         {},
         { withCredentials: true }
       );
-      // Handle the response if necessary
-      console.log(response.data); // Log response data or handle accordingly
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
         // Handle unauthorized error (e.g., redirect to login)
-        console.error("Session expired. Redirecting to login...");
         navigate('/login')
       } else {
         console.error("Error refreshing token:", error);

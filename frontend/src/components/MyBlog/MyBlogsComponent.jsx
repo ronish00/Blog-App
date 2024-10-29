@@ -15,7 +15,7 @@ const MyBlogsComponent = () => {
   const dispatch = useDispatch();
 
   const blogs = useSelector((state) => state.myBlogs.blogs);
-  console.log(blogs)
+  const reverseBlogs = [...blogs].reverse();
 
   const fetchBlogs = async () => {
     try {
@@ -28,14 +28,13 @@ const MyBlogsComponent = () => {
         setLoading(false);
       }
     } catch (error) {
-      if(error.reponse && error.response.data && error.response.data.error){
-        const errorMsg = error.response.data.error
+      if (error.reponse && error.response.data && error.response.data.error) {
+        const errorMsg = error.response.data.error;
         setError(errorMsg);
         setLoading(false);
-      }
-      else{
+      } else {
         setError("Something went wrong while fetching blogs");
-        console.log(error)
+        console.log(error);
       }
     }
   };
@@ -60,7 +59,7 @@ const MyBlogsComponent = () => {
           {blogs.length === 0 ? (
             <p>No blogs found</p>
           ) : (
-            blogs.map((blog) => ( 
+            reverseBlogs.map((blog) => (
               <li key={blog._id}>
                 <div className="relative">
                   <BlogCard
@@ -69,11 +68,21 @@ const MyBlogsComponent = () => {
                     content={blog.content}
                     date={blog.createdAt}
                     category={blog?.category}
+                    featuredImage={blog?.featuredImage}
                     slug={blog._id}
                   />
-                  <div className="absolute right-6 top-6 flex items-center gap-2">
-                    <DeleteBlog author={blog.author} blogId={blog._id} className="text-red-600"/>
-                    <button onClick={(e) => navigate(`edit-blog/${blog._id}`)} className="bg-none text-black p-0">Update Blog</button>
+                  <div className="absolute right-6 top-6 flex items-center gap-4">
+                    <button
+                      onClick={(e) => navigate(`edit-blog/${blog._id}`)}
+                      className="bg-none text-blue-700 p-0"
+                    >
+                      Update Blog
+                    </button>
+                    <DeleteBlog
+                      author={blog.author}
+                      blogId={blog._id}
+                      className="text-red-600"
+                    />
                   </div>
                 </div>
               </li>
