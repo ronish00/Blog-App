@@ -48,7 +48,6 @@ const AddBlogComponent = () => {
         toast.success(response.data.message)
       }
     } catch (error) {
-      console.log(error)
       if(error.response && error.response.data && error.response.data.error){
         const errorMessage = error.response.data.error
         toast.error(errorMessage)
