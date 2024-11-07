@@ -44,6 +44,7 @@ const createBlog = async (req, res) => {
         success: true,
       });
   } catch (error) {
+    console.error("Error creating blog:", error);
     return res.status(500).json({
       message: "Error creating blog",
       error: error.message || "Unknown error",
