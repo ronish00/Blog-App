@@ -1,4 +1,6 @@
 import multer from 'multer';
+import fs from 'fs';
+import path from 'path';
 
 // Ensure the temp directory exists
 const tempDirectory = path.join(__dirname, 'public', 'temp');
