@@ -3,7 +3,11 @@ import fs from 'fs';
 import path from 'path';
 
 // Ensure the temp directory exists
-const tempDirectory = path.join(__dirname, 'public', 'temp');
+const tempDirectory = path.join(
+    path.dirname(new URL(import.meta.url).pathname), 
+    'public', 
+    'temp'
+);
 
 if (!fs.existsSync(tempDirectory)) {
     fs.mkdirSync(tempDirectory, { recursive: true });
