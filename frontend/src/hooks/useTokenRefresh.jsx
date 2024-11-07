@@ -15,7 +15,9 @@ const useTokenRefresh = () => {
       );
 
     } catch (error) {
-      navigate('/login')
+      if(error.response && error.response.data && error.response.data.error){
+        navigate('/login')
+      }
     }
   };
 
