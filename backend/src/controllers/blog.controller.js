@@ -16,8 +16,6 @@ const createBlog = async (req, res) => {
       throw new Error("Featured Image is required");
     }
 
-    console.log(featuredImagePath)
-
     const featuredImage = await uploadOnCloudinary(featuredImagePath);
     if(!featuredImage){
       throw new Error("Error uploading featured image");

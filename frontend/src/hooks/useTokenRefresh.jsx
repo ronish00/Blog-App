@@ -13,10 +13,9 @@ const useTokenRefresh = () => {
         {},
         { withCredentials: true }
       );
-      console.log(response)
+
     } catch (error) {
       navigate('/login')
-      console.error("Error refreshing token:", error);
     }
   };
 

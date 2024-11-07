@@ -5,7 +5,7 @@ import { User } from '../models/users.model.js'
 const verifyJwt = async (req, res, next) => {
     try {
         const incomingAccessToken = req.cookies.accessToken || req.header('Authorization')?.split(' ')[1];
-        console.log("Error: ", req.cookies.accessToken);
+
         if(!incomingAccessToken){
             return res.status(404).json({message: "User is not logged in"})
         }
