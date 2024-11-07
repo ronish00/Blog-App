@@ -28,7 +28,7 @@ const DeleteBlog = ({ author, blogId, className = "" }) => {
 
       // Proceed to delete the blog
       const response = await axios.delete(
-        `http://localhost:3000/api/v1/blogs/deleteBlog/${blogId}`,
+        `https://blog-app-1jmq.onrender.com/api/v1/blogs/deleteBlog/${blogId}`,
         {withCredentials: true}
       );
 

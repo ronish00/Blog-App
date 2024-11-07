@@ -40,7 +40,7 @@ const EditBlogComponent = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/v1/blogs/${id}`,
+        `https://blog-app-1jmq.onrender.com/api/v1/blogs/${id}`,
         {
           withCredentials: true,
         }
@@ -61,7 +61,7 @@ const EditBlogComponent = () => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/v1/blogs/updateBlog/${id}`,
+        `https://blog-app-1jmq.onrender.com/api/v1/blogs/updateBlog/${id}`,
         {
           title: data.title,
           category: data.category,

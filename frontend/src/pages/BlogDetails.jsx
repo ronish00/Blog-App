@@ -13,7 +13,7 @@ const BlogDetails = () => {
 
   const fetchBlog = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/v1/blogs/${id}`, {withCredentials: true})
+      const response = await axios.get(`https://blog-app-1jmq.onrender.com/api/v1/blogs/${id}`, {withCredentials: true})
       if(response.status === 200){
         setLoading(false);
         setBlog(response.data.blog);

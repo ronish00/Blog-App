@@ -14,7 +14,7 @@ const Home = () => {
   // const fetchAllBlogs = async () => {
   //   try {
   //     const response = await axios.get(
-  //       "http://localhost:3000/api/v1/blogs/getAllBlogs",
+  //       "https://blog-app-1jmq.onrender.com/api/v1/blogs/getAllBlogs",
   //       { withCredentials: true }
   //     );
   //     if (response.status === 200) {

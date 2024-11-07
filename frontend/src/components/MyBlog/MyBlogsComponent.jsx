@@ -20,7 +20,7 @@ const MyBlogsComponent = () => {
   const fetchBlogs = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/blogs/getOwnBlogs",
+        "https://blog-app-1jmq.onrender.com/api/v1/blogs/getOwnBlogs",
         { withCredentials: true }
       );
       if (response.status === 200) {

@@ -31,7 +31,7 @@ const SignUpComponent = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/users/register",
+        "https://blog-app-1jmq.onrender.com/api/v1/users/register",
         data,
         { withCredentials: true }
       );

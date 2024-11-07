@@ -9,7 +9,7 @@ const useTokenRefresh = () => {
   const refreshToken = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/users/refresh-token",
+        "https://blog-app-1jmq.onrender.com/api/v1/users/refresh-token",
         {},
         { withCredentials: true }
       );

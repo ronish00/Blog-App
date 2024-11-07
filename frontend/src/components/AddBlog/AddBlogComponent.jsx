@@ -32,7 +32,7 @@ const AddBlogComponent = () => {
   const handleFormSubmit = async (data) => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/blogs/createBlog', 
+      const response = await axios.post('https://blog-app-1jmq.onrender.com/api/v1/blogs/createBlog', 
         {
           title: data.title,
           category: data.category,

@@ -17,7 +17,7 @@ function App() {
 
   const fetchCurrentData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/v1/users/getCurrentUser', { withCredentials: true });
+      const response = await axios.get('https://blog-app-1jmq.onrender.com/api/v1/users/getCurrentUser', { withCredentials: true });
       if(response.data.success === true){
         setLoading(false);
         dispatch(login(response.data.user))

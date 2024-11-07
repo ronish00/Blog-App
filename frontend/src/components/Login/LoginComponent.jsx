@@ -35,7 +35,7 @@ const LoginComponent = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/v1/users/login",
+        "https://blog-app-1jmq.onrender.com/api/v1/users/login",
         data,
         { withCredentials: true }
       );

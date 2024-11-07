@@ -12,7 +12,7 @@ export const fetchBlogs = createAsyncThunk(
     'allBlogs/fetchBlogs',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get('http://localhost:3000/api/v1/blogs/getAllBlogs', { withCredentials: true });
+            const response = await axios.get('https://blog-app-1jmq.onrender.com/api/v1/blogs/getAllBlogs', { withCredentials: true });
             return response.data; // returning data on success
         } catch (error) {
             return rejectWithValue(error.response?.data?.error || 'Failed fetching all blogs');
