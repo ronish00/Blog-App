@@ -5,6 +5,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 const createBlog = async (req, res) => {
   try {
     const { title, content, category } = req.body;
+    console.log(title, content, category);
     const user = req.user;
 
     if (!(title && content && category)) {
