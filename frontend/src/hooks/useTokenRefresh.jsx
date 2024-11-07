@@ -14,12 +14,8 @@ const useTokenRefresh = () => {
         { withCredentials: true }
       );
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
-        // Handle unauthorized error (e.g., redirect to login)
-        navigate('/login')
-      } else {
-        console.error("Error refreshing token:", error);
-      }
+      navigate('/login')
+      console.error("Error refreshing token:", error);
     }
   };
 
