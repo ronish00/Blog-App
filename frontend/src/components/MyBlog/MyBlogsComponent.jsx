@@ -34,7 +34,6 @@ const MyBlogsComponent = () => {
         setLoading(false);
       } else {
         setError("Something went wrong while fetching blogs");
-        console.log(error);
       }
     }
   };

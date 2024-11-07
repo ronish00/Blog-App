@@ -10,7 +10,6 @@ const LogoutBtn = () => {
 
     const handleLogout = async () => {
         const response = await axios.post('https://blog-app-1jmq.onrender.com/api/v1/users/logout', {}, {withCredentials: true});
-        console.log(response)
         if(response.data.success === true){
           dispatch(logout());
           toast.success(response.data.message)

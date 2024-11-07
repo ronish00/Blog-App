@@ -45,7 +45,6 @@ const DeleteBlog = ({ author, blogId, className = "" }) => {
       } else {
         toast.error("Something went wrong while deleting the blog");
       }
-      console.log(error)
     } finally {
       setLoading(false);  // Stop loading after request
     }
