@@ -23,9 +23,8 @@ const useTokenRefresh = () => {
 
   useEffect(() => {
 
-    const eightDaysInMilliseconds = 8 * 24 * 60 * 60 * 1000;
-
-    const intervalId = setInterval(refreshToken, eightDaysInMilliseconds); // Refresh token every 1 minute
+    const oneHourInMilliseconds = 60 * 60 * 1000;
+    const intervalId = setInterval(refreshToken, oneHourInMilliseconds);
 
     return () => clearInterval(intervalId); // Cleanup function to clear the interval
   }, []);
