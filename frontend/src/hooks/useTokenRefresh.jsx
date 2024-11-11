@@ -9,7 +9,7 @@ const useTokenRefresh = () => {
   const refreshToken = async () => {
     try {
       const response = await axios.post(
-        "https://blog-app-1jmq.onrender.com/api/v1/users/refresh-token",
+        "https://blog-app-1jmq.onrender.coma/api/v1/users/refresh-token",
         {},
         { withCredentials: true }
       );
@@ -22,7 +22,10 @@ const useTokenRefresh = () => {
   };
 
   useEffect(() => {
-    const intervalId = setInterval(refreshToken, 60000); // Refresh token every 1 minute
+
+    const eightDaysInMilliseconds = 8 * 24 * 60 * 60 * 1000;
+
+    const intervalId = setInterval(refreshToken, eightDaysInMilliseconds); // Refresh token every 1 minute
 
     return () => clearInterval(intervalId); // Cleanup function to clear the interval
   }, []);
