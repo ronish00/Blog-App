@@ -10,5 +10,5 @@ connectDB()
     })
 })
 .catch(() => {
-    console.log("Failed to listen on ${process.env.PORT}");
+    console.log(`Failed to listen on ${process.env.PORT}`);
 })
