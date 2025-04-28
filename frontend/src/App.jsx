@@ -6,11 +6,8 @@ import Footer from './components/Footer'
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { login, logout } from "./store/authSlice";
-import useTokenRefresh from "./hooks/useTokenRefresh";
 
 function App() {
-
-  useTokenRefresh();
 
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch()
